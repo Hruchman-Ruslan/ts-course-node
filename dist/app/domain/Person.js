@@ -17,6 +17,7 @@ const class_validator_1 = require("class-validator");
 const CreatePerson_dto_1 = require("./CreatePerson.dto");
 const ApiResponse_1 = require("helpers/ApiResponse");
 const ApiError_1 = require("helpers/ApiError");
+const HTTPResponseLogger_1 = require("app/middlewares/HTTPResponseLogger");
 const storeData = [];
 let Person = class Person {
     async getAll() {
@@ -51,6 +52,7 @@ let Person = class Person {
 };
 __decorate([
     (0, routing_controllers_1.Get)(),
+    (0, routing_controllers_1.UseAfter)(HTTPResponseLogger_1.HTTPResponseLogger),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

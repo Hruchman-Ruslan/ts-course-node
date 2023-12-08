@@ -1,4 +1,11 @@
-import { Body, Get, JsonController, Param, Post } from "routing-controllers";
+import {
+  Body,
+  Get,
+  JsonController,
+  Param,
+  Post,
+  UseAfter,
+} from "routing-controllers";
 import { validate } from "class-validator";
 
 import { IPerson } from "./Person.types";
@@ -6,12 +13,14 @@ import { CreatePerson } from "./CreatePerson.dto";
 
 import { ApiResponse } from "helpers/ApiResponse";
 import { ApiError } from "helpers/ApiError";
+import { HTTPResponseLogger } from "app/middlewares/HTTPResponseLogger";
 
 const storeData: IPerson[] = [];
 
 @JsonController("/person")
 export default class Person {
   @Get()
+  @UseAfter(HTTPResponseLogger)
   async getAll() {
     return new ApiResponse(true, storeData);
   }
